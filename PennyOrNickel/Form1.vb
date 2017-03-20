@@ -20,50 +20,63 @@ Public Class frmPennyOrNickel
 
         If IsNumeric(strNumOfWorkDays) Then
             intNumberOfWorkDays = Convert.ToInt32(strNumOfWorkDays)
-            If intNumberOfWorkDays > 18 And intNumberOfWorkDays < 23 Then
-                If radPenny.Checked Then
-                    While intNumberOfWorkDays > 18 And intNumberOfWorkDays < 23
-                        decTotalPayPerPeriod += CDec(intNumberOfWorkDays * _cdecNickelPay) * 2
-                        intNumberOfWorkDays += 1
-                        lblTotalPayPerPeriod.Text = "The Total Pay for this period is: " & decTotalPayPerPeriod.ToString("C")
-                    End While
-                    btnCalculate.Enabled = False
+            If intNumberOfWorkDays > 18 And intNumberOfWorkDays < 23 AndAlso radPenny.Checked = True Then
+
+                While intNumberOfWorkDays > 18 And intNumberOfWorkDays < 23
+                    decTotalPayPerPeriod += CDec(intNumberOfWorkDays * _cdecPennyPay) * 2
+                    intNumberOfWorkDays += 1
+                    lblTotalPayPerPeriod.Text = "The Total Pay for this period is: " & decTotalPayPerPeriod.ToString("C")
+                End While
+                btnCalculate.Enabled = False
+            ElseIf intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23 AndAlso radNickel.Checked = True Then
+                While intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23
+                    decTotalPayPerPeriod += CDec(intNumberOfWorkDays * _cdecNickelPay) * 2
+                    intNumberOfWorkDays += 1
+                    lblTotalPayPerPeriod.Text = "The Total Pay for this period is: " & decTotalPayPerPeriod.ToString("C")
+
+                End While
 
 
-
-                End If
-            Else
+            ElseIf radPenny.Checked = True And intNumberOfWorkDays < 18 Or intNumberOfWorkDays > 22 Then
                 MsgBox("Number of workdays must be between 19 and 22")
-            End If
-        Else
-            MsgBox("Please Enter in a valid number for number of workdays")
-        End If
-
-
-
-
-        If IsNumeric(strNumOfWorkDays) Then
-            intNumberOfWorkDays = Convert.ToInt32(strNumOfWorkDays)
-            If intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23 Then
-                If radNickel.Checked Then
-                    While intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23
-                        decTotalPayPerPeriod += CDec(intNumberOfWorkDays * _cdecNickelPay) * 2
-                        intNumberOfWorkDays += 1
-                        lblTotalPayPerPeriod.Text = "The Total Pay for this period is: " & decTotalPayPerPeriod.ToString("C")
-                    End While
-
-                    btnCalculate.Enabled = False
-
-
-
-
-                End If
-            Else
+                txtWorkDays.Text = ""
+                txtWorkDays.Focus()
+            ElseIf radNickel.Checked = True And intNumberOfWorkDays < 16 Or intNumberOfWorkDays > 22 Then
                 MsgBox("Number of workdays must be between 16 and 22")
+
             End If
         Else
-            MsgBox("Please Enter in a valid number for number of workdays")
+            MsgBox("Please enter in a valid number for the work days")
         End If
+
+
+
+
+
+
+
+        'If IsNumeric(strNumOfWorkDays) Then
+        'intNumberOfWorkDays = Convert.ToInt32(strNumOfWorkDays)
+        'If intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23 Then
+        'If radNickel.Checked Then
+        'While intNumberOfWorkDays > 15 And intNumberOfWorkDays < 23
+        'decTotalPayPerPeriod += CDec(intNumberOfWorkDays * _cdecNickelPay) * 2
+        'intNumberOfWorkDays += 1
+        'lblTotalPayPerPeriod.Text = "The Total Pay for this period is: " & decTotalPayPerPeriod.ToString("C")
+        'End While
+        '
+        'btnCalculate.Enabled = False
+
+
+
+
+        'End If
+        'Else
+        'MsgBox("Number of workdays must be between 16 and 22")
+        'End If
+        'Else
+        'MsgBox("Please Enter in a valid number for number of workdays")
+        'End If
 
 
 
@@ -84,7 +97,7 @@ Public Class frmPennyOrNickel
 
     Private Sub frmPennyOrNickel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        radPenny.Focus()
+        radPenny.Checked = True
         txtWorkDays.Focus()
         lblTotalPayPerPeriod.Text = ""
 
